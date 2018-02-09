@@ -34,6 +34,10 @@ var clientLeave = function(socket) {
 		var index = room.clients.indexOf(socket);
 		if (index != -1) {
 			room.clients.splice(index, 1);
+			if (room.clients.length == 0) { // 房间客户端连接 则释放房间
+				roomMap[curSocket.roomName] = null;
+				console.log('release room with: ' + curSocket.roomName);
+			}
 		}
 	}
 	socketMap[socket.token] = null;
@@ -109,7 +113,7 @@ var createRoom = function(body, roomName) {
 				socket.roomName = roomName;
 				socketMap[body.token] = socket;
 			}
-			
+
 			var clients = [];
 			clients.push(socket);
 			roomMap[roomName] = {clients: clients};
