@@ -12,8 +12,14 @@ var Remote = function(socket) {
 		}
 		game = new Game();
 		game.init(doms, data.type, data.dir);
-		console.log('remote_init');
+		reset();
 	})
+	// 重置数据
+	var reset = function() {
+		document.getElementById('remote_time').innerHTML = 0;
+		document.getElementById('remote_score').innerHTML = 0;
+	}
+
 
 	socket.on('next', function(data) {
 		game.performNext(data.type, data.dir);

@@ -96,6 +96,7 @@ var Local = function(socket) {
 			resultDiv: document.getElementById('local_result')
 		}
 		game = new Game();
+		reset();
 		var initType = ganerateType();
 		var initDir = ganerateDir();
 		game.init(doms, initType, initDir);
@@ -121,6 +122,13 @@ var Local = function(socket) {
 		var prepareBtn = document.getElementById('prepareBtn');
 		prepareBtn.style.display = 'block';
 		prepareBtn.innerHTML = '再来一局';
+	}
+	// 重置数据
+	var reset = function() {
+		timeCount = 0;
+		time = 0;
+		document.getElementById('local_time').innerHTML = 0;
+		document.getElementById('local_score').innerHTML = 0;
 	}
 
 	socket.on('start', function() {

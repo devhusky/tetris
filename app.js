@@ -103,23 +103,31 @@ var createRoom = function(body, roomName) {
 
 		return  {status: 1, msg: '该房号已存在'};
 	} else {
-		var socket = socketMap[body.token];
-		socket.roomName = roomName;
-		socketMap[body.token] = socket;
+		if (roomName) {
+			var socket = socketMap[body.token];
+			if (socket) {
+				socket.roomName = roomName;
+				socketMap[body.token] = socket;
+			}
+			
+			var clients = [];
+			clients.push(socket);
+			roomMap[roomName] = {clients: clients};
 
-		var clients = [];
-		clients.push(socket);
-		roomMap[roomName] = {clients: clients};
-
-		return {status: 0, msg: '创建房间成功'};
+			return {status: 0, msg: '创建房间成功'};
+		} else {
+			return {status: 1, msg: '房间号为空'};
+		}
 	}
 }
 
 var joinRoom = function(body, roomName) {
 	if (roomMap[roomName]) { 
 		var socket = socketMap[body.token];
-		socket.roomName = roomName;
-		socketMap[body.token] = socket;
+		if (socket) {
+			socket.roomName = roomName;
+			socketMap[body.token] = socket;
+		}
 
 		var room = roomMap[roomName];
 
