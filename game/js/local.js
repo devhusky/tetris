@@ -95,8 +95,8 @@ var Local = function(socket) {
 			scoreDiv: document.getElementById('local_score'),
 			resultDiv: document.getElementById('local_result')
 		}
-		game = new Game();
 		reset();
+		game = new Game();
 		var initType = ganerateType();
 		var initDir = ganerateDir();
 		game.init(doms, initType, initDir);
@@ -114,7 +114,7 @@ var Local = function(socket) {
 	// 结束
 	var stop = function() {
 		if (timer) {
-			clearTimeout(timer)
+			clearInterval(timer);
 			timer = null;
 		}
 		document.onkeydown = null;
@@ -125,6 +125,7 @@ var Local = function(socket) {
 	}
 	// 重置数据
 	var reset = function() {
+		game = null;
 		timeCount = 0;
 		time = 0;
 		document.getElementById('local_time').innerHTML = 0;

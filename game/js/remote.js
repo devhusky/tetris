@@ -10,12 +10,13 @@ var Remote = function(socket) {
 			scoreDiv: document.getElementById('remote_score'),
 			resultDiv: document.getElementById('remote_result')
 		}
+		reset();
 		game = new Game();
 		game.init(doms, data.type, data.dir);
-		reset();
 	})
 	// 重置数据
 	var reset = function() {
+		game = null;
 		document.getElementById('remote_time').innerHTML = 0;
 		document.getElementById('remote_score').innerHTML = 0;
 	}
