@@ -121,7 +121,9 @@ var Local = function(socket) {
 
 		var prepareBtn = document.getElementById('prepareBtn');
 		prepareBtn.style.display = 'block';
-		prepareBtn.innerHTML = '再来一局';
+		if (game) {
+			prepareBtn.innerHTML = '再来一局';
+		}
 	}
 	// 重置数据
 	var reset = function() {
@@ -146,6 +148,8 @@ var Local = function(socket) {
 	})
 	socket.on('leave', function() {
 		stop();
-		game.setResult(true);
+		if (game) {
+			game.setResult(true);
+		}
 	})
 }
